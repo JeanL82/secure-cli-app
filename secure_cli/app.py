@@ -33,13 +33,22 @@ def register() :
 
 
 
+def main():
+
+    os.makedirs("data",exist_ok=True)
+    while True:
+        print("1. Register")
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == '1':
+            register()
+        else:
+            print("Opcion invalida. Intente de nuevo.")
+        
 
 
 
-
-
-
-
+main()
 
 
 
