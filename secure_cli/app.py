@@ -12,18 +12,25 @@ def Hashpassword(password) :
     hashed = hashlib.sha256(password.encode()).hexdigest()
     return hashed
 
-def register() :
-    os.makedirs("Users",exist_ok=True)
+def register():
+    os.makedirs("Data",exist_ok=True)
     path = "data/users.txt"
+
+    Invalid = ["select","from","Drop","insert","delete","update","user",";","--","'","\""]
 
 
     username=input("Enter su nombre de usuario: ")
+    
+    username_lower = username.lower()
+
+    for palabras in Invalid:
+        if palabras.lower() in username_lower:
+            print("Nombre de usuario invalido. Intente de nuevo.")
+            return
+        
     password=pwinput.pwinput("Enter la contrasena: ", mask='*')
 
-    if username == "Select"  or username == "select" or username == "From"  or username == "from" :
-        print("User Invalido")
-        return
-
+  
     hashed_password=Hashpassword(password)
 
     with open(path,'a') as file:
@@ -38,10 +45,13 @@ def main():
     os.makedirs("data",exist_ok=True)
     while True:
         print("1. Register")
-        opcion = input("Seleccione una opcion: ")
+        opcion = input("Seleccione una opcion: ").strip()
 
         if opcion == '1':
             register()
+        elif opcion == 'q':
+            print("Saliendo...")
+            break
         else:
             print("Opcion invalida. Intente de nuevo.")
         
